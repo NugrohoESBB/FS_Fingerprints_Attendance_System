@@ -134,3 +134,43 @@ void sendDataToSheet(int id, String status) {
   }
   // http.end();
 }
+
+
+
+
+
+==========================================================================
+  const SignUp = () => {
+  const [username, setUsername] = React.useState("");
+  const [avatar, setAvatar] = React.useState(null);
+
+  const submitNewUser = () => {
+    const formData = new FormData();
+    formData.append('avatar', avatar);
+
+    fetch('https://*MY_HASH*mockapi.io/*MY_FILE*', {
+        method: 'POST', 
+        body: formData
+      })
+      .then((response) => response.json())
+      .then((result) => {
+        console.log('Success:', result);
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }
+
+  return (
+    <>
+      <div className={styles.name}>
+        <span>Type your Username</span>
+        <input type="text" placeholder="Username" value={username} onChange={(e: any) => setUsername(e.target.value)} />
+      </div>
+      <div className={styles.avatar}>
+        <label htmlFor="file"><i><BsFillCloudUploadFill/></i>Upload your Avatar</label>
+        <input type="file" accept="image/*" id="file" onChange={(e: any) => setAvatar([...e.target.files])} />
+      </div>
+    </>
+  )
+}
